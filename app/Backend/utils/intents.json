@@ -1,0 +1,119 @@
+{
+    "intents": [
+      {
+        "tag": "greeting",
+        "patterns": ["Hello", "Hi", "Hey", "Good morning", "Good afternoon"],
+        "responses": ["greeting"],
+        "context_set": "confirm_identity",
+        "call_handle": "continue"
+      },
+      {
+        "tag": "confirm_identity",
+        "patterns": ["Yes", "That's me", "Speaking", "Yes, this is {customer_name}"],
+        "responses": ["confirm_identity"],
+        "context_set": "check_availability",
+        "context_filter": "confirm_identity",
+        "call_handle": "continue"
+      },
+      {
+        "tag": "deny_identity",
+        "patterns": ["No", "Wrong number", "Not available", "They're not here"],
+        "responses": ["deny_identity"],
+        "context_filter": "confirm_identity",
+        "call_handle": "end"
+      },
+      {
+        "tag": "available",
+        "patterns": ["Yes", "Sure", "I have time", "Go ahead"],
+        "responses": ["available"],
+        "context_set": "assess_experience",
+        "context_filter": "check_availability",
+        "call_handle": "continue"
+      },
+      {
+        "tag": "not_available",
+        "patterns": ["No", "I'm busy", "Not now", "Another time"],
+        "responses": ["not_available"],
+        "context_set": "schedule_callback",
+        "context_filter": "check_availability",
+        "call_handle": "end"
+      },
+      {
+        "tag": "already_investing",
+        "patterns": ["I'm already investing", "I have investments", "I invest"],
+        "responses": ["already_investing"],
+        "context_set": "gauge_interest",
+        "context_filter": "assess_experience",
+        "call_handle": "continue"
+      },
+      {
+        "tag": "exploring_options",
+        "patterns": ["I'm exploring", "New to investing", "Looking into it", "Considering investing","sure"],
+        "responses": ["exploring_options"],
+        "context_set": "present_beginner_options",
+        "context_filter": "assess_experience",
+        "call_handle": "continue"
+      },
+      {
+        "tag": "interested",
+        "patterns": ["Yes", "I'm interested", "Tell me more", "Sounds good","sure"],
+        "responses": ["interested"],
+        "context_set": "ask_age",
+        "context_filter": "gauge_interest",
+        "call_handle": "continue"
+      },
+      {
+        "tag": "not_interested",
+        "patterns": ["No", "Not interested", "I'll pass", "Maybe later","Nope"],
+        "responses": ["not_interested"],
+        "context_filter": "gauge_interest",
+        "call_handle": "end"
+      },
+      {
+        "tag": "provide_age",
+        "patterns": ["I'm {age}", "{age} years old", "My age is {age}"],
+        "responses": ["provide_age"],
+        "context_set": "present_tailored_options",
+        "context_filter": "ask_age",
+        "call_handle": "continue"
+      },
+      {
+        "tag": "decline_age",
+        "patterns": ["I'd rather not say", "I don't want to provide that", "Skip this"],
+        "responses": ["decline_age"],
+        "context_set": "present_general_options",
+        "context_filter": "ask_age",
+        "call_handle": "continue"
+      },
+      {
+        "tag": "schedule_callback",
+        "patterns": ["Yes", "That would be better", "Call me later", "Another time works"],
+        "responses": ["schedule_callback"],
+        "context_set": "get_callback_time",
+        "context_filter": "schedule_callback",
+        "call_handle": "continue"
+      },
+      {
+        "tag": "no_callback",
+        "patterns": ["No", "Don't call back", "I'll reach out if interested"],
+        "responses": ["no_callback"],
+        "context_filter": "schedule_callback",
+        "call_handle": "end"
+      },
+      {
+        "tag": "get_callback_time",
+        "patterns": ["{day} at {time}", "Around {time}", "Next {day}"],
+        "responses": ["Perfect! I've scheduled a callback for {day} at {time}. Thank you for your time, and we look forward to speaking with you then!"],
+        "context_filter": "get_callback_time",
+        "call_handle": "end"
+      },
+      {
+        "tag": "goodbye",
+        "patterns": ["Goodbye", "Bye", "Thanks", "That's all"],
+        "responses": ["Thank you for your time. If you have any questions in the future, please don't hesitate to reach out. Have a great day!"],
+        "context_filter": "any",
+        "call_handle": "end"
+      }
+    ]
+  }
+  
